@@ -1,5 +1,20 @@
 const projectsData = [
   {
+    "id": "branding_test_370",
+    "title": "Test",
+    "category": "Branding",
+    "country": "EGY",
+    "client": "Test",
+    "industry": "Test",
+    "rate": "4",
+    "date": "2025-11-30",
+    "thumbnail": "",
+    "hasVideo": false,
+    "description": "",
+    "slideshow": [],
+    "video": ""
+  },
+  {
     "video": "",
     "category": "Branding",
     "client": "Sport",
