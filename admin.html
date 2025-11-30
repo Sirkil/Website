@@ -32,11 +32,11 @@
         import { 
             LayoutDashboard, Plus, Search, Save, X, 
             Image as ImageIcon, Trash2, Github, 
-            Settings, RefreshCw, Pencil, CheckCircle, AlertCircle
+            Settings, RefreshCw, Pencil, CheckCircle, AlertCircle, AlertTriangle
         } from 'lucide-react';
         import { initializeApp } from 'firebase/app';
         import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-        import { getFirestore, collection, setDoc, doc, onSnapshot, deleteDoc, query, writeBatch } from 'firebase/firestore';
+        import { getFirestore, collection, setDoc, doc, onSnapshot, deleteDoc, query, writeBatch, getDocs } from 'firebase/firestore';
 
         // ---------------------------------------------------------
         // 1. FIREBASE CONFIG
@@ -72,6 +72,32 @@
             "On Ground Activations"
         ];
 
+        // --- Custom Modal Component ---
+        const ConfirmationModal = ({ isOpen, title, message, onConfirm, onCancel, confirmText = "Confirm", cancelText = "Cancel" }) => {
+            if (!isOpen) return null;
+            return (
+                <div className="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4">
+                    <div className="bg-white rounded-lg shadow-xl max-w-sm w-full p-6 animate-in fade-in zoom-in duration-200">
+                        <div className="flex flex-col items-center text-center space-y-4">
+                            <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600">
+                                <AlertTriangle size={24} />
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+                            <p className="text-sm text-gray-500">{message}</p>
+                            <div className="flex gap-3 w-full mt-2">
+                                <button onClick={onCancel} className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium transition">
+                                    {cancelText}
+                                </button>
+                                <button onClick={onConfirm} className="flex-1 px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 font-medium transition">
+                                    {confirmText}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
         function AdminPanel() {
             // -- Auth State --
             const [user, setUser] = useState(null);
@@ -83,6 +109,15 @@
             const [isLoading, setIsLoading] = useState(false);
             const [searchTerm, setSearchTerm] = useState("");
             const [notification, setNotification] = useState(null);
+
+            // -- Modal State --
+            const [modalConfig, setModalConfig] = useState({
+                isOpen: false,
+                title: "",
+                message: "",
+                onConfirm: () => {},
+                onCancel: () => setModalConfig(prev => ({ ...prev, isOpen: false }))
+            });
 
             // -- Data State --
             const [hostedProjects, setHostedProjects] = useState(initialProjectsData);
@@ -144,6 +179,8 @@
 
             // --- 3. Merge & Sort Projects ---
             const displayedProjects = useMemo(() => {
+                // Logic: If it exists in Firestore, it's 'Edited'.
+                // If we push to GitHub and clear Firestore, it becomes 'Hosted'.
                 const editedIds = new Set(firestoreProjects.map(p => p.id));
                 const editedList = firestoreProjects.map(p => ({ ...p, status: 'Edited', source: 'firebase' }));
 
@@ -176,6 +213,19 @@
                 setTimeout(() => setNotification(null), 4000);
             };
 
+            const triggerModal = (title, message, confirmAction) => {
+                setModalConfig({
+                    isOpen: true,
+                    title,
+                    message,
+                    onConfirm: () => {
+                        confirmAction();
+                        setModalConfig(prev => ({ ...prev, isOpen: false }));
+                    },
+                    onCancel: () => setModalConfig(prev => ({ ...prev, isOpen: false }))
+                });
+            };
+
             const fetchFromGithub = async () => {
                 setIsLoading(true);
                 try {
@@ -197,105 +247,110 @@
                 setIsLoading(false);
             };
 
-            const pushToGithub = async () => {
+            const pushToGithub = () => {
                 if (!ghConfig.sha) { showNotification("Load from GitHub first to get SHA", "error"); return; }
-                if (!window.confirm("WARNING: This will overwrite project.js on GitHub with the current list.\n\nThis will also CLEAR your local 'Edited' status, marking all projects as 'Hosted'. Continue?")) return;
+                
+                triggerModal(
+                    "Deploy to Live Site?", 
+                    "This will overwrite the live website data with your current list. This will also clear your 'Edited' drafts as they become 'Hosted'.",
+                    async () => {
+                        setIsLoading(true);
+                        try {
+                            // 1. Prepare Data
+                            const exportData = displayedProjects.map(({ status, source, ...rest }) => rest);
+                            const contentStr = `const projectsData = ${JSON.stringify(exportData, null, 2)};`;
+                            const contentBase64 = btoa(new TextEncoder().encode(contentStr).reduce((d, b) => d + String.fromCharCode(b), ''));
+                            
+                            // 2. Push to GitHub
+                            const url = `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/${ghConfig.path}`;
+                            const res = await fetch(url, {
+                                method: 'PUT',
+                                headers: {
+                                    'Authorization': `token ${ghConfig.token}`,
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    message: "Update via Admin Panel",
+                                    content: contentBase64,
+                                    sha: ghConfig.sha
+                                })
+                            });
+                            if (!res.ok) throw new Error("Push Failed");
+                            const data = await res.json();
+                            setGhConfig(prev => ({ ...prev, sha: data.content.sha })); 
+                            
+                            // 3. Clear Firestore (Reset status to Hosted)
+                            // We do this because the "Edited" version is now the "Hosted" version.
+                            const batch = writeBatch(db);
+                            const q = query(collection(db, 'projects'));
+                            const snapshot = await getDocs(q);
+                            snapshot.forEach((doc) => {
+                                batch.delete(doc.ref);
+                            });
+                            await batch.commit();
 
-                setIsLoading(true);
-                try {
-                    const exportData = displayedProjects.map(({ status, source, ...rest }) => rest);
-                    const contentStr = `const projectsData = ${JSON.stringify(exportData, null, 2)};`;
-                    const contentBase64 = btoa(new TextEncoder().encode(contentStr).reduce((d, b) => d + String.fromCharCode(b), ''));
-                    
-                    const url = `https://api.github.com/repos/${ghConfig.owner}/${ghConfig.repo}/contents/${ghConfig.path}`;
-                    const res = await fetch(url, {
-                        method: 'PUT',
-                        headers: {
-                            'Authorization': `token ${ghConfig.token}`,
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            message: "Update via Admin Panel",
-                            content: contentBase64,
-                            sha: ghConfig.sha
-                        })
-                    });
-                    
-                    if (!res.ok) throw new Error("Push Failed");
-                    const data = await res.json();
-                    setGhConfig(prev => ({ ...prev, sha: data.content.sha })); 
-
-                    // --- NEW LOGIC START ---
-                    // 1. Update the local "Hosted" state immediately with what we just sent
-                    setHostedProjects(exportData);
-
-                    // 2. Clean up Firestore:
-                    // Since the data is now live, we remove the "Edited" copies from Firestore
-                    // so the status flips back to "Hosted".
-                    const batch = writeBatch(db);
-                    firestoreProjects.forEach(p => {
-                        const ref = doc(db, 'projects', p.id);
-                        batch.delete(ref);
-                    });
-                    await batch.commit();
-                    // --- NEW LOGIC END ---
-
-                    showNotification("Successfully Pushed & Synced!");
-                } catch (e) { 
-                    console.error(e);
-                    showNotification(e.message, "error"); 
-                }
-                setIsLoading(false);
+                            // 4. Update Local State
+                            setHostedProjects(exportData);
+                            
+                            showNotification("Successfully Pushed & Status Updated!");
+                        } catch (e) { showNotification(e.message, "error"); }
+                        setIsLoading(false);
+                    }
+                );
             };
 
-            const handleSave = async (e) => {
+            const handleSave = (e) => {
                 e.preventDefault();
                 if (!formData.title) return showNotification("Title is required", "error");
 
-                // --- NEW: CONFIRMATION DIALOG ---
-                if (!window.confirm("Are you sure you want to save this project locally?")) {
-                    return;
-                }
+                triggerModal(
+                    "Save Changes?",
+                    "Are you sure? If you want to change anything click cancel.",
+                    async () => {
+                        setIsLoading(true);
+                        let projectId = formData.id;
+                        if (!projectId) {
+                            const cleanTitle = formData.title.replace(/[^a-zA-Z0-9]/g, '').toLowerCase().substring(0, 10);
+                            projectId = `${formData.category.split(' ')[0].toLowerCase()}_${cleanTitle}_${Math.floor(Math.random()*1000)}`;
+                        }
 
-                let projectId = formData.id;
-                if (!projectId) {
-                    const cleanTitle = formData.title.replace(/[^a-zA-Z0-9]/g, '').toLowerCase().substring(0, 10);
-                    projectId = `${formData.category.split(' ')[0].toLowerCase()}_${cleanTitle}_${Math.floor(Math.random()*1000)}`;
-                }
+                        const projectToSave = {
+                            ...formData,
+                            id: projectId,
+                            slideshow: Array.isArray(formData.slideshow) 
+                                ? formData.slideshow 
+                                : formData.slideshow.split('\n').map(u=>u.trim()).filter(u=>u.length>0)
+                        };
 
-                const projectToSave = {
-                    ...formData,
-                    id: projectId,
-                    // Ensure video is empty if hasVideo is false
-                    video: formData.hasVideo ? formData.video : "",
-                    slideshow: Array.isArray(formData.slideshow) 
-                        ? formData.slideshow 
-                        : formData.slideshow.split('\n').map(u=>u.trim()).filter(u=>u.length>0)
-                };
-
-                try {
-                    await setDoc(doc(db, 'projects', projectId), projectToSave);
-                    showNotification(isEditing ? "Project Updated (Locally)" : "Project Added (Locally)");
-                    setView('dashboard');
-                } catch (e) {
-                    console.error(e);
-                    showNotification("Error saving to database", "error");
-                }
+                        try {
+                            await setDoc(doc(db, 'projects', projectId), projectToSave);
+                            showNotification(isEditing ? "Project Updated (Locally)" : "Project Added (Locally)");
+                            setView('dashboard');
+                        } catch (e) {
+                            console.error(e);
+                            showNotification("Error saving to database", "error");
+                        }
+                        setIsLoading(false);
+                    }
+                );
             };
 
-            const handleDelete = async (project) => {
-                const confirmMsg = `Are you sure you want to delete "${project.title}"?\n\nThis will remove it from the list. You must "Push to GitHub" to make this permanent on the live site.`;
-                if (!window.confirm(confirmMsg)) return;
-
-                try {
-                    if (project.source === 'firebase' || firestoreProjects.find(p => p.id === project.id)) {
-                        await deleteDoc(doc(db, 'projects', project.id));
+            const handleDelete = (project) => {
+                triggerModal(
+                    "Delete Project?",
+                    `Are you sure you want to delete "${project.title}"?`,
+                    async () => {
+                        try {
+                            if (project.source === 'firebase' || firestoreProjects.find(p => p.id === project.id)) {
+                                await deleteDoc(doc(db, 'projects', project.id));
+                            }
+                            if (project.source === 'github') {
+                                setHostedProjects(prev => prev.filter(p => p.id !== project.id));
+                            }
+                            showNotification("Deleted. Push to GitHub to finalize.");
+                        } catch (e) { showNotification("Delete failed", "error"); }
                     }
-                    if (project.source === 'github') {
-                        setHostedProjects(prev => prev.filter(p => p.id !== project.id));
-                    }
-                    showNotification("Deleted. Push to GitHub to finalize.");
-                } catch (e) { showNotification("Delete failed", "error"); }
+                );
             };
 
             const handleEdit = (project) => {
@@ -323,6 +378,15 @@
 
             return (
                 <div className="min-h-screen flex text-sm">
+                    {/* CONFIRMATION MODAL */}
+                    <ConfirmationModal 
+                        isOpen={modalConfig.isOpen}
+                        title={modalConfig.title}
+                        message={modalConfig.message}
+                        onConfirm={modalConfig.onConfirm}
+                        onCancel={modalConfig.onCancel}
+                    />
+
                     {/* SIDEBAR */}
                     <aside className="w-64 bg-slate-900 text-white flex-col hidden md:flex sticky top-0 h-screen">
                         <div className="p-6 border-b border-slate-700 font-bold text-lg">Project Admin</div>
@@ -458,13 +522,11 @@
                                             <h3 className="font-bold text-gray-900">Media</h3>
                                             <InputGroup label="Thumbnail URL" name="thumbnail" val={formData.thumbnail} onChange={handleInputChange} placeholder="https://..." />
                                             
-                                            {/* HAS VIDEO CHECKBOX */}
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-2 py-2">
                                                 <input type="checkbox" id="hasVideo" name="hasVideo" checked={formData.hasVideo} onChange={handleInputChange} className="w-4 h-4 text-blue-600 rounded" />
-                                                <label htmlFor="hasVideo" className="text-sm font-medium text-gray-700">Has Video Content?</label>
+                                                <label htmlFor="hasVideo" className="text-sm font-medium text-gray-700 select-none">Has Video Content?</label>
                                             </div>
 
-                                            {/* VIDEO URL INPUT (CONDITIONAL) */}
                                             <InputGroup 
                                                 label="Video URL" 
                                                 name="video" 
@@ -472,7 +534,6 @@
                                                 onChange={handleInputChange} 
                                                 placeholder="https://..." 
                                                 disabled={!formData.hasVideo}
-                                                className={!formData.hasVideo ? "bg-gray-100 text-gray-400 cursor-not-allowed" : ""}
                                             />
                                             
                                             <div>
@@ -522,10 +583,10 @@
             </button>
         );
 
-        const InputGroup = ({ label, name, val, onChange, type="text", className="", ...props }) => (
-            <div>
+        const InputGroup = ({ label, name, val, onChange, type="text", disabled=false, ...props }) => (
+            <div className={disabled ? "opacity-50" : ""}>
                 <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">{label}</label>
-                <input type={type} name={name} value={val} onChange={onChange} className={`input-field ${className}`} {...props} />
+                <input type={type} name={name} value={val} onChange={onChange} disabled={disabled} className={`input-field ${disabled ? "bg-gray-100 cursor-not-allowed" : ""}`} {...props} />
             </div>
         );
 
@@ -547,7 +608,6 @@
         style.textContent = `
             .input-field { width: 100%; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; outline: none; transition: all 0.2s; }
             .input-field:focus { border-color: #2563eb; ring: 2px; ring-color: #bfdbfe; }
-            .input-field:disabled { background-color: #f3f4f6; color: #9ca3af; cursor: not-allowed; } 
             .btn-primary { background-color: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500; transition: background 0.2s; }
             .btn-primary:hover { background-color: #1d4ed8; }
             .btn-secondary { background-color: #f3f4f6; color: #374151; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500; transition: background 0.2s; }
