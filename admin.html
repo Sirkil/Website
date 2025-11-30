@@ -27,7 +27,7 @@
     <div id="root"></div>
 
     <script type="text/babel" data-type="module">
-        import React, { useState, useEffect, useMemo } from 'react';
+        import React, { useState, useEffect, useMemo, useCallback } from 'react';
         import { createRoot } from 'react-dom/client';
         import { 
             LayoutDashboard, Plus, Search, Save, X, 
@@ -207,6 +207,32 @@
             }, [firestoreProjects, hostedProjects, searchTerm]);
 
 
+            // --- Helper: Generate ID ---
+            const generateNextId = useCallback((categoryName) => {
+                if (!categoryName) return "";
+                const prefix = categoryName.split(' ')[0].toLowerCase(); // e.g., "Branding" -> "branding"
+
+                // Collect all numbers currently used for this prefix
+                const existingNumbers = new Set();
+                displayedProjects.forEach(p => {
+                    if (p.id && p.id.toLowerCase().startsWith(prefix)) {
+                        const suffix = p.id.substring(prefix.length);
+                        if (/^\d+$/.test(suffix)) {
+                            existingNumbers.add(parseInt(suffix, 10));
+                        }
+                    }
+                });
+
+                // Find smallest missing positive integer
+                let nextNum = 1;
+                while (existingNumbers.has(nextNum)) {
+                    nextNum++;
+                }
+
+                return `${prefix}${nextNum}`;
+            }, [displayedProjects]);
+
+
             // --- 4. Actions ---
             const showNotification = (msg, type = "success") => {
                 setNotification({ msg, type });
@@ -308,10 +334,13 @@
                     "Are you sure? If you want to change anything click cancel.",
                     async () => {
                         setIsLoading(true);
+                        
+                        // ID is already handled in state by handleNew/handleInputChange
                         let projectId = formData.id;
+                        
+                        // Fallback purely for safety if ID is somehow empty
                         if (!projectId) {
-                            const cleanTitle = formData.title.replace(/[^a-zA-Z0-9]/g, '').toLowerCase().substring(0, 10);
-                            projectId = `${formData.category.split(' ')[0].toLowerCase()}_${cleanTitle}_${Math.floor(Math.random()*1000)}`;
+                            projectId = generateNextId(formData.category);
                         }
 
                         const projectToSave = {
@@ -364,13 +393,26 @@
 
             const handleNew = () => {
                 setIsEditing(false);
-                setFormData(initialFormState);
+                // Pre-calculate ID for default category
+                const defaultCat = "Branding";
+                const newId = generateNextId(defaultCat);
+                setFormData({ ...initialFormState, category: defaultCat, id: newId });
                 setView('form');
             };
 
             const handleInputChange = (e) => {
                 const { name, value, type, checked } = e.target;
-                setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+                
+                setFormData(prev => {
+                    const newData = { ...prev, [name]: type === 'checkbox' ? checked : value };
+                    
+                    // If changing category on a NEW project, re-calculate the ID
+                    if (name === 'category' && !isEditing) {
+                        newData.id = generateNextId(value);
+                    }
+                    
+                    return newData;
+                });
             };
 
             // --- RENDER ---
@@ -505,7 +547,14 @@
 
                                         {/* Row 2: ID & Client */}
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                            <InputGroup label="ID (Auto-generated if empty)" name="id" val={formData.id} onChange={handleInputChange} disabled={isEditing} placeholder="Leave blank to auto-generate" />
+                                            <InputGroup 
+                                                label="ID (Auto-generated)" 
+                                                name="id" 
+                                                val={formData.id} 
+                                                onChange={handleInputChange} 
+                                                disabled={true} 
+                                                placeholder="Auto-generated" 
+                                            />
                                             <InputGroup label="Client" name="client" val={formData.client} onChange={handleInputChange} />
                                             <InputGroup label="Industry" name="industry" val={formData.industry} onChange={handleInputChange} />
                                         </div>
