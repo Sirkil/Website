@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fafafa;
+      color: #333;
+    }
+    .container {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 10px;
+    }
+
+    /* --- HEADER SECTION --- */
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+      gap: 60px;
+    }
+    .project-left {
+      flex: 3;
+    }
+    .project-title {
+      font-size: 42px;
+      font-weight: bold;
+      margin: 0 0 35px 0;
+      line-height: 1.2;
+    }
+    .project-description {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .project-info {
+      flex: 1;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .project-info p {
+      margin: 8px 0;
+    }
+    .project-info strong {
+      display: inline-block;
+      width: 120px;
+      color: #000;
+    }
+
+    /* --- MEDIA SECTIONS --- */
+    .media-block {
+      margin: 30px auto;
+      max-width: 1000px;
+    }
+    .media-block img,
+    .media-block video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    /* --- SLIDESHOW --- */
+    .slideshow-container {
+      position: relative;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .slide {
+      display: none;
+    }
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 10px;
+      background: rgba(0,0,0,0.4);
+      color: white;
+      border-radius: 50%;
+      font-size: 18px;
+      user-select: none;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+    .dots {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .dot {
+      cursor: pointer;
+      height: 12px;
+      width: 12px;
+      margin: 0 4px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .dot.active {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- HEADER -->
+    <div class="project-header">
+      <div class="project-left">
+        <h1 class="project-title" id="project-title"></h1>
+        <p class="project-description" id="project-description"></p>
+      </div>
+      <div class="project-info" id="project-info"></div>
+    </div>
+
+    <!-- THUMBNAIL -->
+    <div class="media-block" id="thumbnail"></div>
+
+    <!-- VIDEO -->
+    <div class="media-block" id="video"></div>
+
+    <!-- SLIDESHOW -->
+    <div class="media-block" id="gallery"></div>
+
+  </div>
+
+  <script src="project.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const projectId = params.get("id");
+    const project = projectsData.find(p => p.id == projectId);
+
+    if (project) {
+      document.getElementById("project-title").textContent = project.title;
+      document.getElementById("project-description").textContent = project.description || "";
+
+      document.getElementById("project-info").innerHTML = `
+        <p><strong>Client:</strong> ${project.client || "N/A"}</p>
+        <p><strong>Industry:</strong> ${project.industry || "N/A"}</p>
+        <p><strong>Category:</strong> ${project.category || "N/A"}</p>
+        <p><strong>Year:</strong> ${project.year || (project.date ? new Date(project.date).getFullYear() : "N/A")}</p>
+      `;
+
+      // Thumbnail
+      if (project.thumbnail) {
+        document.getElementById("thumbnail").innerHTML = `
+          <img src="${project.thumbnail}" alt="${project.title}">
+        `;
+      }
+
+      // Slideshow
+      const galleryImages = project.gallery || project.slideshow || [];
+      if (galleryImages.length) {
+        document.getElementById("gallery").innerHTML = `
+          <div class="slideshow-container">
+            ${galleryImages.map((img, i) => `
+              <div class="slide" style="${i === 0 ? "display:block" : ""}">
+                <img src="${img}" alt="">
+              </div>
+            `).join("")}
+            <a class="prev">❮</a>
+            <a class="next">❯</a>
+          </div>
+          <div class="dots">
+            ${galleryImages.map((_, i) => `
+              <span class="dot ${i === 0 ? "active" : ""}" data-slide="${i+1}"></span>
+            `).join("")}
+          </div>
+        `;
+        initSlideshow();
+      }
+
+      // Video
+      let videoUrl = project.videoUrl || project.video || "";
+      if (videoUrl.includes("github.com") && videoUrl.includes("/blob/")) {
+        videoUrl = videoUrl.replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/");
+      }
+      if (videoUrl) {
+        document.getElementById("video").innerHTML = `
+          <video controls>
+            <source src="${videoUrl}" type="video/mp4">
+          </video>
+        `;
+      }
+    } else {
+      document.querySelector(".container").innerHTML = "<p>Project not found.</p>";
+    }
+
+    // Slideshow logic
+    function initSlideshow() {
+      let slideIndex = 1;
+      showSlides(slideIndex);
+
+      document.querySelector(".prev").onclick = () => showSlides(slideIndex -= 1);
+      document.querySelector(".next").onclick = () => showSlides(slideIndex += 1);
+      document.querySelectorAll(".dot").forEach(dot => {
+        dot.onclick = () => {
+          slideIndex = parseInt(dot.dataset.slide);
+          showSlides(slideIndex);
+        };
+      });
+
+      function showSlides(n) {
+        const slides = document.querySelectorAll(".slide");
+        const dots = document.querySelectorAll(".dot");
+        if (n > slides.length) slideIndex = 1;
+        if (n < 1) slideIndex = slides.length;
+
+        slides.forEach(s => s.style.display = "none");
+        dots.forEach(d => d.classList.remove("active"));
+
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].classList.add("active");
+      }
+    }
+  </script>
+</body>
+</html>

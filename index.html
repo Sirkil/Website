@@ -1,0 +1,268 @@
+<!-- Load your project data -->
+<script src="project.js"></script>
+<title>Portfolio</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px auto;
+  max-width: 1500px;
+}
+.portfolio-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.portfolio-tab {
+  padding: 8px 15px;
+  background: transparent;
+  color: black;
+  cursor: pointer;
+  transition: border-bottom 0.3s;
+  border-bottom: 3px solid transparent;
+}
+.portfolio-tab.active { border-bottom: 3px solid #000000; }
+.portfolio-tab:hover { border-bottom: 3px solid rgba(23, 153, 240, 0.5); }
+
+.filter-menu {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.portfolio-grid {
+  column-count: 4;        /* number of columns */
+  column-gap: 5px;        /* no gap */
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.portfolio-item {
+  position: relative;   /* allow absolute children */
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 5px;
+  break-inside: avoid;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.portfolio-item img,
+.portfolio-item video {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain; 
+}
+.portfolio-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none
+}
+.portfolio-item:hover 
+.portfolio-overlay { opacity: 1; }
+
+.play-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 18px;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+}
+</style>
+
+<div id="app"></div>
+
+<script>
+const app = document.getElementById("app");
+const categories = ["All", "End to end Event Organization", "On Ground Activations", "Branding", "Concepts & Production"];
+
+// HEADER (Tabs + Filter)
+const header = document.createElement("div");
+header.className = "portfolio-header";
+app.appendChild(header);
+
+// Tabs
+const tabsContainer = document.createElement("div");
+tabsContainer.className = "portfolio-tabs";
+header.appendChild(tabsContainer);
+
+// Filter Dropdown
+const filterSelect = document.createElement("select");
+filterSelect.className = "filter-menu";
+filterSelect.innerHTML = `
+  <option value="default">Default</option>
+  <option value="highest">Highest Rated</option>
+  <option value="latest">Latest Projects</option>
+`;
+header.appendChild(filterSelect);
+
+// Grid
+const grid = document.createElement("div");
+grid.className = "portfolio-grid";
+app.appendChild(grid);
+
+categories.forEach(cat => {
+  const tab = document.createElement("div");
+  tab.className = "portfolio-tab";
+  tab.textContent = cat;
+  tab.onclick = () => filterProjects(cat);
+  tabsContainer.appendChild(tab);
+});
+document.querySelectorAll(".portfolio-tab")[0].classList.add("active");
+
+// --- Helper to shuffle ---
+function shuffleArray(arr) {
+  return arr
+    .map(a => ({ sort: Math.random(), value: a }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(a => a.value);
+}
+
+function getVideoUrl(p) {
+  let videoUrl = p.videoUrl || p.video || p.videoURL || p.video_link || "";
+  if (!videoUrl) return "";
+  if (videoUrl.includes("github.com") && videoUrl.includes("/blob/")) {
+    videoUrl = videoUrl
+      .replace("github.com", "raw.githubusercontent.com")
+      .replace("/blob/", "/");
+  }
+  return videoUrl;
+}
+
+function renderProjects(list) {
+  grid.innerHTML = "";
+  list.forEach(p => {
+    const item = document.createElement("div");
+    item.className = "portfolio-item";
+    item.onclick = () => window.location.href = `project-details.html?id=${p.id}`;
+
+    const hasVid = !!getVideoUrl(p) || !!p.hasVideo;
+
+    item.innerHTML = `
+      <img src="${p.thumbnail}" alt="${p.title}">
+      <div class="portfolio-overlay">${p.title}</div>
+      ${hasVid ? '<div class="play-icon" title="Play video">▶</div>' : ''}
+    `;
+    grid.appendChild(item);
+
+    if (hasVid) {
+      const playIcon = item.querySelector(".play-icon");
+      playIcon.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const primary = getVideoUrl(p);
+        const candidates = [];
+        if (primary) {
+          candidates.push(primary);
+          if (primary.includes("/Videos/")) candidates.push(primary.replace("/Videos/", "/videos/"));
+          if (primary.includes("/videos/")) candidates.push(primary.replace("/videos/", "/Videos/"));
+        }
+        const video = document.createElement("video");
+        video.setAttribute("controls", "");
+        video.setAttribute("playsinline", "");
+        video.setAttribute("preload", "metadata");
+        video.style.width = "100%";
+        video.style.height = "100%";
+        video.style.objectFit = "cover";
+        video.crossOrigin = "anonymous";
+
+        const source = document.createElement("source");
+        source.type = "video/mp4";
+        source.src = candidates.shift() || "";
+        video.appendChild(source);
+
+        const overlay = document.createElement("div");
+        overlay.className = "portfolio-overlay";
+        overlay.textContent = p.title;
+
+        item.innerHTML = "";
+        item.appendChild(video);
+        item.appendChild(overlay);
+
+        const tryNext = () => {
+          if (candidates.length) {
+            source.src = candidates.shift();
+            video.load();
+            video.play().catch(()=>{});
+          } else {
+            item.innerHTML = `
+              <img src="${p.thumbnail}" alt="${p.title}">
+              <div class="portfolio-overlay">${p.title}</div>
+            `;
+          }
+        };
+
+        video.addEventListener("error", tryNext, { once: false });
+        video.play().catch(() => {});
+      });
+    }
+  });
+}
+
+// --- Filtering ---
+function filterProjects(category) {
+  document.querySelectorAll(".portfolio-tab").forEach(t => t.classList.remove("active"));
+  [...document.querySelectorAll(".portfolio-tab")].find(t => t.textContent === category).classList.add("active");
+
+  let list = category === "All"
+    ? [...projectsData]
+    : projectsData.filter(p => p.category === category);
+
+  // Apply filter select
+  const filterType = filterSelect.value;
+
+  if (filterType === "highest") {
+    // Show all sorted by rating
+    list = [...list].sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  } else if (filterType === "latest") {
+    // Show all sorted by date
+    list = [...list].sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+  } else {
+    // --- Default ---
+    if (category === "All") {
+      // All projects → randomize everything
+      list = shuffleArray(list);
+    } else {
+      list = shuffleArray(list);
+    }
+  }
+
+  renderProjects(list);
+}
+
+// Re-filter when dropdown changes
+filterSelect.addEventListener("change", () => {
+  const activeTab = document.querySelector(".portfolio-tab.active").textContent;
+  filterProjects(activeTab);
+});
+
+// Initially render all projects
+filterProjects("All");
+</script>
