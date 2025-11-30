@@ -1,22 +1,22 @@
 const projectsData = [
   {
+    "video": "",
+    "category": "Branding",
+    "client": "Sport",
+    "rate": "",
+    "title": "Sakab Sport",
+    "country": "KSA",
+    "description": "",
     "date": "",
     "slideshow": [
       "IMAGE_URL_1",
       "IMAGE_URL_2",
       "IMAGE_URL_3"
     ],
-    "description": "",
     "id": "branding1",
-    "industry": "",
-    "category": "Branding",
-    "title": "Sakab Sport",
-    "rate": "",
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sakab%20Sport/1.png",
-    "client": "Sakab sport",
     "hasVideo": false,
-    "video": "",
-    "country": "KSA"
+    "industry": ""
   },
   {
     "id": "branding2",
