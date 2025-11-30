@@ -36,7 +36,7 @@
         } from 'lucide-react';
         import { initializeApp } from 'firebase/app';
         import { getAuth, signInAnonymously, onAuthStateChanged } from 'firebase/auth';
-        import { getFirestore, collection, setDoc, doc, onSnapshot, deleteDoc, query } from 'firebase/firestore';
+        import { getFirestore, collection, setDoc, doc, onSnapshot, deleteDoc, query, writeBatch } from 'firebase/firestore';
 
         // ---------------------------------------------------------
         // 1. FIREBASE CONFIG
@@ -63,9 +63,7 @@
         // ---------------------------------------------------------
         // INITIAL DATA
         // ---------------------------------------------------------
-        const initialProjectsData = [
-          
-        ];
+        const initialProjectsData = [];
 
         const CATEGORIES = [
             "Branding",
@@ -201,7 +199,7 @@
 
             const pushToGithub = async () => {
                 if (!ghConfig.sha) { showNotification("Load from GitHub first to get SHA", "error"); return; }
-                if (!window.confirm("WARNING: This will overwrite project.js on GitHub with the current list. Continue?")) return;
+                if (!window.confirm("WARNING: This will overwrite project.js on GitHub with the current list.\n\nThis will also CLEAR your local 'Edited' status, marking all projects as 'Hosted'. Continue?")) return;
 
                 setIsLoading(true);
                 try {
@@ -222,17 +220,42 @@
                             sha: ghConfig.sha
                         })
                     });
+                    
                     if (!res.ok) throw new Error("Push Failed");
                     const data = await res.json();
                     setGhConfig(prev => ({ ...prev, sha: data.content.sha })); 
-                    showNotification("Successfully Pushed to GitHub!");
-                } catch (e) { showNotification(e.message, "error"); }
+
+                    // --- NEW LOGIC START ---
+                    // 1. Update the local "Hosted" state immediately with what we just sent
+                    setHostedProjects(exportData);
+
+                    // 2. Clean up Firestore:
+                    // Since the data is now live, we remove the "Edited" copies from Firestore
+                    // so the status flips back to "Hosted".
+                    const batch = writeBatch(db);
+                    firestoreProjects.forEach(p => {
+                        const ref = doc(db, 'projects', p.id);
+                        batch.delete(ref);
+                    });
+                    await batch.commit();
+                    // --- NEW LOGIC END ---
+
+                    showNotification("Successfully Pushed & Synced!");
+                } catch (e) { 
+                    console.error(e);
+                    showNotification(e.message, "error"); 
+                }
                 setIsLoading(false);
             };
 
             const handleSave = async (e) => {
                 e.preventDefault();
                 if (!formData.title) return showNotification("Title is required", "error");
+
+                // --- NEW: CONFIRMATION DIALOG ---
+                if (!window.confirm("Are you sure you want to save this project locally?")) {
+                    return;
+                }
 
                 let projectId = formData.id;
                 if (!projectId) {
@@ -243,6 +266,8 @@
                 const projectToSave = {
                     ...formData,
                     id: projectId,
+                    // Ensure video is empty if hasVideo is false
+                    video: formData.hasVideo ? formData.video : "",
                     slideshow: Array.isArray(formData.slideshow) 
                         ? formData.slideshow 
                         : formData.slideshow.split('\n').map(u=>u.trim()).filter(u=>u.length>0)
@@ -432,13 +457,24 @@
                                         <div className="space-y-4 border-t pt-4">
                                             <h3 className="font-bold text-gray-900">Media</h3>
                                             <InputGroup label="Thumbnail URL" name="thumbnail" val={formData.thumbnail} onChange={handleInputChange} placeholder="https://..." />
-                                            <InputGroup label="Video URL" name="video" val={formData.video} onChange={handleInputChange} placeholder="https://..." />
                                             
+                                            {/* HAS VIDEO CHECKBOX */}
                                             <div className="flex items-center gap-2">
                                                 <input type="checkbox" id="hasVideo" name="hasVideo" checked={formData.hasVideo} onChange={handleInputChange} className="w-4 h-4 text-blue-600 rounded" />
                                                 <label htmlFor="hasVideo" className="text-sm font-medium text-gray-700">Has Video Content?</label>
                                             </div>
 
+                                            {/* VIDEO URL INPUT (CONDITIONAL) */}
+                                            <InputGroup 
+                                                label="Video URL" 
+                                                name="video" 
+                                                val={formData.video} 
+                                                onChange={handleInputChange} 
+                                                placeholder="https://..." 
+                                                disabled={!formData.hasVideo}
+                                                className={!formData.hasVideo ? "bg-gray-100 text-gray-400 cursor-not-allowed" : ""}
+                                            />
+                                            
                                             <div>
                                                 <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">Slideshow Images (One URL per line)</label>
                                                 <textarea name="slideshow" rows="4" value={formData.slideshow} onChange={handleInputChange} className="input-field font-mono text-xs" placeholder="http://img1.jpg&#10;http://img2.jpg"></textarea>
@@ -486,10 +522,10 @@
             </button>
         );
 
-        const InputGroup = ({ label, name, val, onChange, type="text", ...props }) => (
+        const InputGroup = ({ label, name, val, onChange, type="text", className="", ...props }) => (
             <div>
                 <label className="block text-xs font-bold text-gray-700 mb-1 uppercase">{label}</label>
-                <input type={type} name={name} value={val} onChange={onChange} className="input-field" {...props} />
+                <input type={type} name={name} value={val} onChange={onChange} className={`input-field ${className}`} {...props} />
             </div>
         );
 
@@ -511,6 +547,7 @@
         style.textContent = `
             .input-field { width: 100%; padding: 0.75rem; border: 1px solid #e5e7eb; border-radius: 0.5rem; outline: none; transition: all 0.2s; }
             .input-field:focus { border-color: #2563eb; ring: 2px; ring-color: #bfdbfe; }
+            .input-field:disabled { background-color: #f3f4f6; color: #9ca3af; cursor: not-allowed; } 
             .btn-primary { background-color: #2563eb; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500; transition: background 0.2s; }
             .btn-primary:hover { background-color: #1d4ed8; }
             .btn-secondary { background-color: #f3f4f6; color: #374151; padding: 0.5rem 1rem; border-radius: 0.5rem; font-weight: 500; transition: background 0.2s; }
