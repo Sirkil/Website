@@ -16,7 +16,7 @@ const projectsData = [
     "id": "branding1",
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sakab%20Sport/1.png",
     "hasVideo": false,
-    "industry": ""
+    "industry": "Branding"
   },
   {
     "id": "branding2",
