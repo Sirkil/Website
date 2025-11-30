@@ -210,13 +210,18 @@
             // --- Helper: Generate ID ---
             const generateNextId = useCallback((categoryName) => {
                 if (!categoryName) return "";
-                const prefix = categoryName.split(' ')[0].toLowerCase(); // e.g., "Branding" -> "branding"
+                
+                // NEW LOGIC: Remove all non-alphanumeric characters and lowercase
+                // e.g. "Concepts & Production" -> "conceptsproduction"
+                // e.g. "On Ground Activations" -> "ongroundactivations"
+                const prefix = categoryName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
 
                 // Collect all numbers currently used for this prefix
                 const existingNumbers = new Set();
                 displayedProjects.forEach(p => {
                     if (p.id && p.id.toLowerCase().startsWith(prefix)) {
                         const suffix = p.id.substring(prefix.length);
+                        // Check if the suffix is purely a number
                         if (/^\d+$/.test(suffix)) {
                             existingNumbers.add(parseInt(suffix, 10));
                         }
@@ -224,6 +229,7 @@
                 });
 
                 // Find smallest missing positive integer
+                // This logic fills gaps (e.g., if 1, 2, 4 exist, it picks 3)
                 let nextNum = 1;
                 while (existingNumbers.has(nextNum)) {
                     nextNum++;
