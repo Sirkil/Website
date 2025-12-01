@@ -1,37 +1,23 @@
 const projectsData = [
   {
-    "id": "branding21",
-    "title": "Test",
-    "category": "Branding",
-    "country": "EGY",
-    "client": "Test",
-    "industry": "Test",
-    "rate": "4",
-    "date": "2025-11-30",
-    "thumbnail": "",
-    "hasVideo": false,
-    "description": "",
-    "slideshow": [],
-    "video": ""
-  },
-  {
-    "video": "",
-    "category": "Branding",
-    "client": "Sport",
-    "rate": "",
-    "title": "Sakab Sport",
-    "country": "KSA",
-    "description": "",
-    "date": "",
-    "slideshow": [
-      "IMAGE_URL_1",
-      "IMAGE_URL_2",
-      "IMAGE_URL_3"
-    ],
     "id": "branding1",
+    "title": "Sakab Sport",
+    "category": "Branding",
+    "country": "KSA",
+    "client": "Sport",
+    "industry": "Branding",
+    "rate": "",
+    "date": "",
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sakab%20Sport/1.png",
     "hasVideo": false,
-    "industry": "Branding"
+    "description": "",
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sakab%20Sport/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sakab%20Sport/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sakab%20Sport/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sakab%20Sport/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sakab%20Sport/6.png"],
+    "video": "",
   },
   {
     "id": "branding2",
@@ -45,7 +31,11 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Cammoun/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Cammoun/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Cammoun/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Cammoun/4.png"
+    ],
     "video": ""
   },
   {
@@ -60,7 +50,11 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Babel%20Ltd/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Babel%20Ltd/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Babel%20Ltd/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Babel%20Ltd/4.png",
+    ],
     "video": ""
   },
   {
@@ -75,7 +69,13 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/NMG/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/NMG/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/NMG/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/NMG/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/NMG/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/NMG/6.png",
+    ],
     "video": ""
   },
   {
@@ -90,7 +90,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Cairo%20Bites/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Cairo%20Bites/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Cairo%20Bites/3.png",
+    ],
     "video": ""
   },
   {
@@ -105,7 +108,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sohi%20wa%20Sarih/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sohi%20wa%20Sarih/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sohi%20wa%20Sarih/3.png"
+    ],
     "video": ""
   },
   {
@@ -120,7 +126,12 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Liqua%20lites/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Liqua%20lites/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Liqua%20lites/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Liqua%20lites/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Liqua%20lites/5.png",
+    ],
     "video": ""
   },
   {
@@ -135,7 +146,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/APEX/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/APEX/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/APEX/3.png"
+    ],
     "video": ""
   },
   {
@@ -150,7 +164,14 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sasco/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sasco/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sasco/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sasco/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sasco/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sasco/6.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sasco/7.png",
+    ],
     "video": ""
   },
   {
@@ -165,7 +186,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sehet%20Moustakbalna/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sehet%20Moustakbalna/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Sehet%20Moustakbalna/3.png",
+    ],
     "video": ""
   },
   {
@@ -180,7 +204,11 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Eastlands%20International%20School/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Eastlands%20International%20School/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Eastlands%20International%20School/Asset%2048.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Eastlands%20International%20School/Asset%2049.png",
+    ],
     "video": ""
   },
   {
@@ -195,7 +223,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Child%20Expo/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Child%20Expo/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Child%20Expo/3.png"
+    ],
     "video": ""
   },
   {
@@ -210,7 +241,15 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Money%20Talks/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Money%20Talks/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Money%20Talks/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Money%20Talks/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Money%20Talks/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Money%20Talks/6.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Money%20Talks/7.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Money%20Talks/8.png"
+    ],
     "video": ""
   },
   {
@@ -225,7 +264,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Oxford%20Modern%20School/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Oxford%20Modern%20School/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Oxford%20Modern%20School/3.png"
+    ],
     "video": ""
   },
   {
@@ -240,7 +282,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/MAY%20University%20in%20Cairo/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/MAY%20University%20in%20Cairo/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/MAY%20University%20in%20Cairo/3.png"
+    ],
     "video": ""
   },
   {
@@ -270,7 +315,9 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Liblab%20Visuals/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Liblab%20Visuals/2.png"
+    ],
     "video": ""
   },
   {
@@ -300,7 +347,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Lorinase%20D%20Stand/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Lorinase%20D%20Stand/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Branding/Lorinase%20D%20Stand/3.png"
+    ],
     "video": ""
   },
   {
@@ -315,7 +365,15 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Fevadol%20Campaign%20Concept/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Fevadol%20Campaign%20Concept/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Fevadol%20Campaign%20Concept/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Fevadol%20Campaign%20Concept/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Fevadol%20Campaign%20Concept/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Fevadol%20Campaign%20Concept/6.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Fevadol%20Campaign%20Concept/7.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Fevadol%20Campaign%20Concept/8.png"
+    ],
     "video": ""
   },
   {
@@ -330,7 +388,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Peptazol%20Visual%20and%20Nahdi%20Campaign%20Designs/1.png",
     "hasVideo": false,
     "description": "Peptazol is a widely used treatment for acid reflux, ulcers, and heartburn in Saudi Arabia. It contains lansoprazole and is taken once daily before meals to reduce stomach acid and improve digestive comfort.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Peptazol%20Visual%20and%20Nahdi%20Campaign%20Designs/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Peptazol%20Visual%20and%20Nahdi%20Campaign%20Designs/3.png"
+    ],
     "video": ""
   },
   {
@@ -345,7 +406,16 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/6.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/7.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/8.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enzymax/9.png",
+    ],
     "video": ""
   },
   {
@@ -360,7 +430,13 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Abbott%20Office%20Branding/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Abbott%20Office%20Branding/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Abbott%20Office%20Branding/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Abbott%20Office%20Branding/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Abbott%20Office%20Branding/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Abbott%20Office%20Branding/6.png",
+    ],
     "video": ""
   },
   {
@@ -375,7 +451,13 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/MUC%20University%20Booth%20Design%20&%20Production/1.png",
     "hasVideo": false,
     "description": "May University in Cairo is a private university located in 15 May City, offering accredited programs in engineering, business, and physical therapy. With modern facilities and a smart campus environment, MUC emphasizes hands-on learning and global academic standards.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/MUC%20University%20Booth%20Design%20&%20Production/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/MUC%20University%20Booth%20Design%20&%20Production/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/MUC%20University%20Booth%20Design%20&%20Production/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/MUC%20University%20Booth%20Design%20&%20Production/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/MUC%20University%20Booth%20Design%20&%20Production/6.png",
+    ],
     "video": ""
   },
   {
@@ -390,7 +472,9 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Maalox%20Control%20Booth%20Design%20&%20Production/1.png",
     "hasVideo": false,
     "description": "Maalox Control is an over-the-counter solution for acid reflux and heartburn, providing fast relief by reducing stomach acid. It’s taken once daily and is known for being effective, accessible, and easy to use.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Maalox%20Control%20Booth%20Design%20&%20Production/2.png",
+    ],
     "video": ""
   },
   {
@@ -405,7 +489,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Sanofi%20Office%20Branding/1.png",
     "hasVideo": false,
     "description": "Sanofi transformed its Egypt office to reflect a more modern, collaborative, and commercial identity, moving away from traditional pharmaceutical branding. The new space aligns with the company’s global direction, focusing on openness, agility, and employee well-being.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Sanofi%20Office%20Branding/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Sanofi%20Office%20Branding/3.png"
+    ],
     "video": ""
   },
   {
@@ -420,7 +507,12 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enterogermina%20Booth%20Design%20&%20Production/1.png",
     "hasVideo": false,
     "description": "Designed and produced a custom booth for Enterogermina, tailored to reflect its probiotic positioning and family-friendly identity. The booth featured interactive zones and clean, clinical visuals, helping the brand connect with both healthcare professionals and general consumers.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enterogermina%20Booth%20Design%20&%20Production/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enterogermina%20Booth%20Design%20&%20Production/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enterogermina%20Booth%20Design%20&%20Production/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Enterogermina%20Booth%20Design%20&%20Production/5.png",
+    ],
     "video": ""
   },
   {
@@ -435,7 +527,13 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Liblab%20Visuals/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Liblab%20Visuals/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Liblab%20Visuals/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Liblab%20Visuals/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Liblab%20Visuals/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Liblab%20Visuals/6.png",
+    ],
     "video": ""
   },
   {
@@ -450,7 +548,12 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Insomnia/1.png",
     "hasVideo": false,
     "description": "We created a fully branded booth for Talabat that showcased the platform’s speed, convenience, and tech-driven identity. helping Talabat engage directly with diverse audiences. Strategically positioned at key events, the booth featured touchscreens, giveaways, and playful visuals that captured the essence of the Talabat experience—modern, fun, and reliable.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Insomnia/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Insomnia/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Insomnia/4.jpeg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Insomnia/5.jpeg",
+    ],
     "video": ""
   },
   {
@@ -465,7 +568,13 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Sustainability/1.png",
     "hasVideo": false,
     "description": "We created a fully branded booth for Talabat that showcased the platform’s speed, convenience, and tech-driven identity. helping Talabat engage directly with diverse audiences. Strategically positioned at key events, the booth featured touchscreens, giveaways, and playful visuals that captured the essence of the Talabat experience—modern, fun, and reliable.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Sustainability/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Sustainability/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Sustainability/4.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Sustainability/5.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Talabat%20Sustainability/6.jpg",
+    ],
     "video": ""
   },
   {
@@ -480,7 +589,9 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Natural%20Birth%20Campaign/1.png",
     "hasVideo": false,
     "description": "We partnered with Egypt’s Ministry of Health to launch a Natural Birth Awareness Campaign aimed at educating expectant mothers on the benefits and safety of natural delivery. The campaign’s tone was supportive, factual, and empowering, dispelling myths and promoting informed choices. Our work included digital content, medical endorsements, and on-ground activations in hospitals and clinics—creating a multi-touchpoint experience that prioritized maternal health and national health goals.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Natural%20Birth%20Campaign/2.png",
+    ],
     "video": ""
   },
   {
@@ -495,7 +606,11 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Entrogermina%20Karl%20Beach/1.jpg",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Entrogermina%20Karl%20Beach/2.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Entrogermina%20Karl%20Beach/3.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Entrogermina%20Karl%20Beach/4.jpg",
+    ],
     "video": ""
   },
   {
@@ -510,7 +625,11 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Telfast%20Bikes%20Alex%20event/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Telfast%20Bikes%20Alex%20event/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Telfast%20Bikes%20Alex%20event/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Telfast%20Bikes%20Alex%20event/4.png",
+    ],
     "video": ""
   },
   {
@@ -526,12 +645,12 @@ const projectsData = [
     "hasVideo": false,
     "description": "Developed branded pharmacy stands for SPIMACO to enhance on-shelf visibility and point-of-sale engagement across key retail locations. The design was clean, informative, and aligned with SPIMACO’s professional pharmaceutical image. Built for durability and flexibility, the stands served as a high-impact retail tool, increasing product awareness while maintaining medical credibility in both chain and independent pharmacies.",
     "slideshow": [
-      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Spimaco/1.jpg",
-      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Spimaco/1.jpg",
-      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Spimaco/1.jpg",
-      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Spimaco/1.jpg"
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Spimaco/2.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Spimaco/3.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Spimaco/4.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Spimaco/5.jpg"
     ],
-    "video": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Videos/Enterogermina%202%20Billion%20Launch%20Event.mp4"
+    "video": ""
   },
   {
     "id": "conceptsproduction19",
@@ -545,7 +664,11 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Haleon%20Be%20Proactive/1.jpg",
     "hasVideo": false,
     "description": "For Sensodyne, we rolled out an awareness campaign focused on educating the public about dentine hypersensitivity and its impact on daily life. The tone was both informative and reassuring, driving home the importance of proper oral care.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Haleon%20Be%20Proactive/2.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Haleon%20Be%20Proactive/3.jpg",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/Concepts/Haleon%20Be%20Proactive/4.jpg",
+    ],
     "video": ""
   },
   {
@@ -1040,7 +1163,13 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202022/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202022/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202022/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202022/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202022/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202022/6.png",
+    ],
     "video": ""
   },
   {
@@ -1055,7 +1184,11 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202023/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202023/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202023/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Campaign%202023/4.png",
+    ],
     "video": ""
   },
   {
@@ -1070,7 +1203,12 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20CairoBites/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20CairoBites/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20CairoBites/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20CairoBites/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20CairoBites/5.png",
+    ],
     "video": ""
   },
   {
@@ -1082,10 +1220,17 @@ const projectsData = [
     "industry": "",
     "rate": "",
     "date": "",
-    "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Ramadan/3.png",
+    "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Ramadan/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Ramadan/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Ramadan/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Ramadan/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Ramadan/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Ramadan/6.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Ramadan/7.png",
+    ],
     "video": ""
   },
   {
@@ -1112,10 +1257,19 @@ const projectsData = [
     "industry": "",
     "rate": "",
     "date": "",
-    "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/5.png",
+    "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/6.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/7.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/8.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/9.png",
+    ],
     "video": ""
   },
   {
@@ -1127,7 +1281,7 @@ const projectsData = [
     "industry": "",
     "rate": "",
     "date": "",
-    "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/2.png",
+    "thumbnail": "",
     "hasVideo": false,
     "description": "Abbott Nutrition is a global leader in science-based health and nutrition, offering trusted brands like Similac, Ensure, Glucerna, and PediaSure. PediaSure is specially formulated to support healthy growth and immunity in children, especially those with picky appetites or nutritional gaps.",
     "slideshow": [],
@@ -1142,7 +1296,7 @@ const projectsData = [
     "industry": "",
     "rate": "",
     "date": "",
-    "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/3.png",
+    "thumbnail": "",
     "hasVideo": false,
     "description": "Abbott Nutrition is a global leader in science-based health and nutrition, offering trusted brands like Similac, Ensure, Glucerna, and PediaSure. PediaSure is specially formulated to support healthy growth and immunity in children, especially those with picky appetites or nutritional gaps.",
     "slideshow": [],
@@ -1157,7 +1311,7 @@ const projectsData = [
     "industry": "",
     "rate": "",
     "date": "",
-    "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Pediasure/6.png",
+    "thumbnail": "",
     "hasVideo": false,
     "description": "Abbott Nutrition is a global leader in science-based health and nutrition, offering trusted brands like Similac, Ensure, Glucerna, and PediaSure. PediaSure is specially formulated to support healthy growth and immunity in children, especially those with picky appetites or nutritional gaps.",
     "slideshow": [],
@@ -1175,7 +1329,12 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Vacsera%202021/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Vacsera%202021/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Vacsera%202021/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Vacsera%202021/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Vacsera%202021/5.png",
+    ],
     "video": ""
   },
   {
@@ -1190,7 +1349,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Moms%20Connect%20Program/1.png",
     "hasVideo": false,
     "description": "An ongoing initiative across clinics and hospitals, bringing mothers together for educational sessions led by pediatricians on gut health and wellness, with giveaways and child-focused activities.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Moms%20Connect%20Program/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Moms%20Connect%20Program/3.png",
+    ],
     "video": ""
   },
   {
@@ -1205,7 +1367,11 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Game/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Game/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Game/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Game/4.png",
+    ],
     "video": ""
   },
   {
@@ -1220,7 +1386,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Campaign/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Campaign/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Campaign/3.png",
+    ],
     "video": ""
   },
   {
@@ -1235,7 +1404,12 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Roadshow/1.png",
     "hasVideo": false,
     "description": "A mobile activation designed to engage consumers in key high-traffic locations, using a branded Dodge Ram vehicle and interactive booth elements to promote Maalox as a fast-acting solution for digestive discomfort.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Roadshow/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Roadshow/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Roadshow/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Maalox%20Roadshow/5.png",
+    ],
     "video": ""
   },
   {
@@ -1250,7 +1424,9 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Roadshow/1.png",
     "hasVideo": false,
     "description": "An on-ground awareness campaign highlighting Bronchicum’s natural formula for treating cough and throat irritation. The branded setup toured across major cities, inviting consumers to experience the product and learn about its herbal composition.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Bronchicum%20Roadshow/2.png",
+    ],
     "video": ""
   },
   {
@@ -1265,7 +1441,13 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Talabat%20School%20Campaign/1.png",
     "hasVideo": false,
     "description": "A multi-school activation that brought Talabat into students’ daily lives through engaging activities, and giveaways tailored for both students and parents during the back-to-school season.",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Talabat%20School%20Campaign/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Talabat%20School%20Campaign/3.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Talabat%20School%20Campaign/4.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Talabat%20School%20Campaign/5.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Talabat%20School%20Campaign/6.png",
+    ],
     "video": ""
   },
   {
@@ -1280,7 +1462,10 @@ const projectsData = [
     "thumbnail": "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Vending%20Machine/1.png",
     "hasVideo": false,
     "description": "",
-    "slideshow": [],
+    "slideshow": [
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Vending%20Machine/2.png",
+      "https://raw.githubusercontent.com/Sirkil/Sirkil_Website_Media/main/On%20Ground%20Activitions/Entrogermina%20Vending%20Machine/3.png",
+    ],
     "video": ""
   },
   {
