@@ -145,11 +145,11 @@
       document.getElementById("project-title").textContent = project.title;
       document.getElementById("project-description").textContent = project.description || "";
 
-      document.getElementById("project-info").innerHTML = `
-        <p><strong>Client:</strong> ${project.client || "N/A"}</p>
-        <p><strong>Industry:</strong> ${project.industry || "N/A"}</p>
-        <p><strong>Category:</strong> ${project.category || "N/A"}</p>
-        <p><strong>Year:</strong> ${project.year || (project.date ? new Date(project.date).getFullYear() : "N/A")}</p>
+      // document.getElementById("project-info").innerHTML = `
+      //   <p><strong>Client:</strong> ${project.client || "N/A"}</p>
+      //   <p><strong>Industry:</strong> ${project.industry || "N/A"}</p>
+      //   <p><strong>Category:</strong> ${project.category || "N/A"}</p>
+      //   <p><strong>Year:</strong> ${project.year || (project.date ? new Date(project.date).getFullYear() : "N/A")}</p>
       `;
 
       // Thumbnail
@@ -227,3 +227,4 @@
   </script>
 </body>
 </html>
+
