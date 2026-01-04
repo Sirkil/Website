@@ -162,7 +162,15 @@ function renderProjects(list) {
   list.forEach(p => {
     const item = document.createElement("div");
     item.className = "portfolio-item";
-    item.onclick = () => window.location.href = `project-details.html?id=${p.id}`;
+    item.onclick = () => {
+      const detailsUrl = `https://Sirkil.github.io/Website/project-details.html?id=${p.id}`;
+      
+      // Option 1: Open in a new tab (Safest for Weebly)
+      window.open(detailsUrl, '_blank');
+      
+      // Option 2: Navigate the current tab (Uncomment below and comment above if preferred)
+      // window.top.location.href = detailsUrl;
+    };;
 
     const hasVid = !!getVideoUrl(p) || !!p.hasVideo;
 
